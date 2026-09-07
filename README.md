@@ -1,29 +1,13 @@
-# B-TV-page — 感應光寓 · TV 主顯示（白版預覽）
+# public/ — 靜態資源
 
-寶舖大安段策展 B 區「感應光寓」客廳 TV 主顯示的**建置產物預覽**，只放 `vite build` 的輸出，
-不含原始碼。原始碼在私有的 [VistwinProject/B-TV](https://github.com/VistwinProject/B-TV)（`main` = 白版）。
+## 房子 3D 模型(house.glb)
 
-- 預覽：<https://vistwinproject.github.io/B-TV-page/>
-- 機位設定工具：`camera-tool.html`
+把你的房子模型放成 **`public/house.glb`** 即可自動接上(無需改 code)。
 
-## 擋搜尋
+- 格式:**glTF 2.0 binary(.glb)**。若是 .gltf + 貼圖,請先合併匯出成單一 .glb。
+- 載入位置:`src/bento/HouseCanvas.jsx` 的 `MODEL_URL = '/house.glb'`。
+- 沒有檔案時:自動 fallback 成程序化的 placeholder 房子(旋轉 / 燈光邏輯完全一樣),方便先驗證版面。
+- 模型會自動置中 + 等比縮放填滿格子(`setModel()`),不必預先調大小;但建議模型「正面朝 +Z、底部貼地」會最好看。
+- 窗戶若想隨情境發光:把窗戶材質的 emissive 開著(任何 `material.emissive` 存在的 mesh 都會被當成發光面,吃情境主色)。
 
-這個 repo 是 public（GitHub Pages 需要），但頁面本身不希望被搜尋到：
-
-- `index.html` 與 `camera-tool.html` 都有 `<meta name="robots" content="noindex, nofollow">`
-- `robots.txt` 為 `User-agent: * / Disallow: /`
-
-## 操作
-
-| 鍵 | 動作 |
-|---|---|
-| `i` / `Enter` | 開始（前言） |
-| `n` / `→` | 下一步 |
-| `o` | 結語 |
-| `r` / `Esc` | 回待機 |
-| `c` | 模擬刷邀請卡 |
-| `1`–`5` | 模擬刷情境鑰匙圈 |
-| `x` / `Space` | 模擬拿起 |
-| `e` | 佈展編輯模式（配色 / 版面） |
-
-展場實機由 NFC 讀卡機（`ws://localhost:8788`）驅動，此預覽無讀卡機，右下角會顯示「連線中」，用鍵盤操作即可。
+放好後重新整理頁面即可;若沒吃到,確認檔名與路徑為 `public/house.glb`。
